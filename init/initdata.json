@@ -1,0 +1,7 @@
+{
+    "sensorconfigs" : [
+        {"macaddr":"","name":"SENS01","altname":"somewhere","interval":300,"ismetric":false},
+        {"macaddr":"","name":"SENS02","altname":"somewhere","interval":300,"ismetric":false},
+        {"macaddr":"","name":"SENS03","altname":"somewhere","interval":300,"ismetric":false}
+    ]
+}
