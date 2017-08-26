@@ -1,7 +1,7 @@
 {
     "sensorconfigs" : [
-        {"macaddr":"","name":"SENS01","altname":"somewhere","interval":300,"ismetric":false},
-        {"macaddr":"","name":"SENS02","altname":"somewhere","interval":300,"ismetric":false},
-        {"macaddr":"","name":"SENS03","altname":"somewhere","interval":300,"ismetric":false}
+        {"macaddr":"00:00:00:00:00:01","name":"SENS01","altname":"somewhere 01","interval":300,"ismetric":false},
+        {"macaddr":"00:00:00:00:00:02","name":"SENS02","altname":"somewhere 02","interval":300,"ismetric":false},
+        {"macaddr":"00:00:00:00:00:03","name":"SENS03","altname":"somewhere 03","interval":300,"ismetric":false}
     ]
 }
