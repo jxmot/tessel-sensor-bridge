@@ -10,7 +10,7 @@
 const path = require('path');
 
 // this object will contain the model(s) and references
-// to `mongoose` and it's connection status.
+// to `mongoose` and its connection status.
 var db = {};
 
 // config data model - usage : var sensorCfg  = new db.config();
