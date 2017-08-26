@@ -8,6 +8,9 @@
     the devices were ESP8266-12E boards with DHT22 sensors. 
 
 */
+global.apphome = __dirname;
+
+const path = require('path');
 const http = require('http');
 const server = http.createServer().listen(4843);
 
@@ -37,8 +40,17 @@ server.on('request', function (req, res) {
             break;
 
         case 'GET':
-            res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end();
+            if(req.url.includes('init')) {
+                const init = require(path.join(global.apphome, '/init/init.js'));
+                init.init(function(data) {
+                    res.writeHead(200, {'Content-Type': 'text/plain'});
+                    res.write(data);
+                    res.end();
+                });
+            } else {
+                res.writeHead(200, {'Content-Type': 'text/plain'});
+                res.end();
+            }
             break;
 
         default:
@@ -48,3 +60,4 @@ server.on('request', function (req, res) {
             break;
     };
 });
+
