@@ -2,7 +2,7 @@
 /*
     (c) 2017 J.Motyl
 
-    mLab Configuration for server access
+    mLab Configuration for server access, account info
 */
 module.exports = {
     mlabapikey: 'your mLab API Key goes here',
@@ -15,3 +15,4 @@ module.exports = {
     // default value of 1000.
     querylimit: 0
 };
+

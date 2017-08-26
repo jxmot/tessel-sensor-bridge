@@ -12,8 +12,8 @@
 const path = require('path');
 const https = require('https');
 
-const config = require(path.join(global.apphome, '/config/mlab-config.js'));
-const account = require(path.join(global.apphome, '/config/_mlab-account.js'));
+const config  = require(path.join(global.apphome, '/mlab-restapi/config/mlab-config.js'));
+const account = require(path.join(global.apphome, '/mlab-restapi/config/_mlab-account.js'));
 
 var mlabRestAPI = {};
 

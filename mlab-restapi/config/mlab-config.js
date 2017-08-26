@@ -2,7 +2,7 @@
 /*
     (c) 2017 J.Motyl
 
-    mLab Configuration for server access
+    mLab Configuration for server access, URL components
 */
 const path = require('path');
 
@@ -21,6 +21,7 @@ module.exports = {
     apikey: '?apiKey=',
     // database query
     dbquery: '&q=',
+    // options
     dbquerylimit: '&l='
 };
 
