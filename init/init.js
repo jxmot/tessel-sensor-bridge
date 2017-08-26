@@ -19,11 +19,13 @@ var init = {};
 
 // config->sensorconfigs
 init.init = function(cb) {
+    var itercount = 0;
     initdata.sensorconfigs.forEach(function(sensor, index, array) {
         mLab.insertDoc(sensor, function(doc) {
             console.log(doc);
             _initdata.push(JSON.parse(doc));
-            if(index === (array.length - 1)) eventEmitter.emit('initDone', cb);
+            itercount += 1;
+            if(itercount === array.length) eventEmitter.emit('initDone', cb);
         },
         'config');
     });
