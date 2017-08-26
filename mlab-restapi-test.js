@@ -4,10 +4,11 @@
 
     Testing code for the mlab-restapi module
 */
+global.apphome = __dirname;
 
 const path = require('path');
+const mLab = require(path.join(global.apphome, '/mlab-restapi/mlab-restapi.js'));
 
-const mLab = require('./mlab-restapi/mlab-restapi.js');
 
 mLab.getCollections(function(data) {
     console.log(data);
