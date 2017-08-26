@@ -14,7 +14,7 @@ const path = require('path');
 const http = require('http');
 const server = http.createServer().listen(4843);
 
-const qstring = require('querystring');
+//const qstring = require('querystring');
 
 // https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
 // https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
