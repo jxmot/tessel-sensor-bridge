@@ -12,10 +12,12 @@
 const path = require('path');
 const https = require('https');
 
-const config = require('../config/mlab-config.js');
-const account =  require('../config/_mlab-account.js');
+const config = require(path.join(global.apphome, '/config/mlab-config.js'));
+const account = require(path.join(global.apphome, '/config/_mlab-account.js'));
 
 var mlabRestAPI = {};
+
+console.log('apphome = ' + global.apphome);
 
 mlabRestAPI.getCollections = function(cb) {
 
@@ -37,7 +39,7 @@ mlabRestAPI.getAllDocs = function(cb, coll) {
 
     var collection = '';
     if(coll === undefined) collection = account.collection;
-    else collection = coll;
+    else collection = '/' + coll;
 
     const options = {
         hostname: config.hostname,
@@ -72,7 +74,7 @@ mlabRestAPI.queryDocs = function(queryobj, cb, coll) {
 
     var collection = '';
     if(coll === undefined) collection = account.collection;
-    else collection = coll;
+    else collection = '/' + coll;
 
     var mlabquery = config.dbquery + JSON.stringify(queryobj);
 
@@ -99,7 +101,7 @@ mlabRestAPI.insertDoc = function(dataobj, cb, coll) {
 
     var collection = '';
     if(coll === undefined) collection = account.collection;
-    else collection = coll;
+    else collection =  '/' + coll;
 
     var postData = JSON.stringify(dataobj);
 
@@ -123,7 +125,7 @@ mlabRestAPI.updateDoc = function(queryobj, dataobj, cb, coll) {
 
     var collection = '';
     if(coll === undefined) collection = account.collection;
-    else collection = coll;
+    else collection = '/' + coll;
 
     var mlabquery = config.dbquery + JSON.stringify(queryobj);
     var postData  = JSON.stringify(dataobj);
@@ -146,7 +148,7 @@ mlabRestAPI.deleteDoc = function(_id, cb, coll) {
 
     var collection = '';
     if(coll === undefined) collection = account.collection;
-    else collection = coll;
+    else collection = '/' + coll;
 
     const options = {
         hostname: config.hostname,
