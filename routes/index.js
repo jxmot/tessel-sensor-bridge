@@ -9,10 +9,19 @@ const path = require('path');
 const fs   = require('fs');
 
 const sensor = require(path.join(global.apphome, '/routes/sensor.js'));
-const html   = require(path.join(global.apphome, '/routes/html.js'));
+// not currently used
+//const html   = require(path.join(global.apphome, '/routes/html.js'));
 
 var routes = {};
 
+//////////////////////////////////////////////////////////////////////////////
+// Useful info - 
+//  Header Field Definitions:
+//      https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+//  Status Code Definitions:
+//      https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+//////////////////////////////////////////////////////////////////////////////
+// 
 // read sensor config database, extract the `name` field and use it to build
 // our routes. each sensor (by name) wiill have it's own database for its
 // data. For example - 
@@ -154,6 +163,9 @@ function show404(res) {
 
 /*
     Respond with a requested asset
+
+    Useful info - 
+        https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
 */
 function sendAsset(req, res) {
     if(req.url.includes('.css')) {

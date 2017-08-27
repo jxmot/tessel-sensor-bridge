@@ -6,20 +6,23 @@
     allow a client access to a MongoDB on mLab. 
 
     This code is intended for use on thin platforms such as the
-    Tessel 2. 
+    Tessel 2. That is why there is no use of packages that aren't
+    built into Node.
 */
 const path = require('path');
 const https = require('https');
 
+// configuration settings.
 const config  = require(path.join(global.apphome, '/mlab-restapi/config/mlab-config.js'));
+// see /mlab-restapi/config/example_mlab-account.js for more information)
 const account = require(path.join(global.apphome, '/mlab-restapi/config/_mlab-account.js'));
 
 var mlabRestAPI = {};
 
 //console.log('apphome = ' + global.apphome);
 
+// GET /databases/collections
 mlabRestAPI.getCollections = function(cb) {
-
     const options = {
         hostname: config.hostname,
         port: config.port,
@@ -29,13 +32,11 @@ mlabRestAPI.getCollections = function(cb) {
             'Content-Type': 'application/json'
         }
     };
-
     makeRequest(options, cb);
 };
 
 // GET /databases/{database}/collections/{collection}
 mlabRestAPI.getAllDocs = function(cb, coll) {
-
     var collection = '';
     if(coll === undefined) collection = account.collection;
     else collection = '/' + coll;
@@ -49,7 +50,6 @@ mlabRestAPI.getAllDocs = function(cb, coll) {
             'Content-Type': 'application/json'
         }
     };
-
     makeRequest(options, cb);
 };
 
@@ -70,7 +70,6 @@ mlabRestAPI.getAllDocs = function(cb, coll) {
 // 
 // https://docs.mongodb.com/manual/reference/operator/index.html
 mlabRestAPI.queryDocs = function(queryobj, cb, coll) {
-
     var collection = '';
     if(coll === undefined) collection = account.collection;
     else collection = '/' + coll;
@@ -89,7 +88,6 @@ mlabRestAPI.queryDocs = function(queryobj, cb, coll) {
             'Content-Type': 'application/json'
         }
     };
-
     makeRequest(options, cb);
 };
 
@@ -97,7 +95,6 @@ mlabRestAPI.queryDocs = function(queryobj, cb, coll) {
 // Content-Type: application/json
 // Body: <JSON data>
 mlabRestAPI.insertDoc = function(dataobj, cb, coll) {
-
     var collection = '';
     if(coll === undefined) collection = account.collection;
     else collection =  '/' + coll;
@@ -121,7 +118,6 @@ mlabRestAPI.insertDoc = function(dataobj, cb, coll) {
 // Content-Type: application/json 
 // Body: <JSON data>
 mlabRestAPI.updateDoc = function(queryobj, dataobj, cb, coll) {
-
     var collection = '';
     if(coll === undefined) collection = account.collection;
     else collection = '/' + coll;
@@ -144,7 +140,6 @@ mlabRestAPI.updateDoc = function(queryobj, dataobj, cb, coll) {
 
 // DELETE /databases/{database}/collections/{collection}/{_id}
 mlabRestAPI.deleteDoc = function(_id, cb, coll) {
-
     var collection = '';
     if(coll === undefined) collection = account.collection;
     else collection = '/' + coll;
@@ -162,7 +157,9 @@ mlabRestAPI.deleteDoc = function(_id, cb, coll) {
 };
 
 //////////////////////////////////////////////////////////////////////////////
-//
+/*
+    Send a request to the server...
+*/
 function makeRequest(options, cb, postdata) {
     const req = https.request(options, function(res) {
         var data = '';

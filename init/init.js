@@ -2,7 +2,9 @@
 /*
     (c) 2017 J.Motyl
 
-    Initialize any static data that the application requires.
+    Initialize the sensor configuration collection. It contains the info that 
+    sensors need when starting up. It is also used by /routes/sensor.js in
+    constructing routing paths for the sensors.
 */
 const path = require('path');
 const mLab = require(path.join(global.apphome, '/mlab-restapi/mlab-restapi.js'));

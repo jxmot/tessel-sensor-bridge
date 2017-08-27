@@ -4,7 +4,9 @@
 
     Psuedo Models - not Mongoose models in the traditional sense, these are
     objects that represent the "schema" we're using. and will provide a 
-    reference of the 
+    reference to the document layouts.
+
+    TO DO: Modify the models to be "constructed".
 
 */
 const path = require('path');
