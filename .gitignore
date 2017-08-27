@@ -18,3 +18,5 @@ node_modules
 *.url
 # SSL files
 *.pem
+*.cert
+*.key
