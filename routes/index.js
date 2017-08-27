@@ -90,7 +90,11 @@ routes.htmRouter = function(req, res) {
                 if(req.url.includes('/favicon')) {
                     showFavicon(res);
                 } else {
-                    show404(res);
+                    if(req.url.includes('/assets/')) {
+                        sendAsset(req, res);
+                    } else {
+                        show404(res);
+                    }
                 }
             }
             break;
@@ -143,6 +147,29 @@ function showIndex(res) {
 function show404(res) {
     res.writeHead(404, {"Content-Type": "text/html"});
     fs.readFile(path.join(global.apphome, '/public/404.html'), function (err, content) {
+        if (err) throw err;
+        res.end(content);
+    });
+};
+
+function sendAsset(req, res) {
+    if(req.url.includes('.css')) {
+        res.writeHead(200, {"Content-Type": "text/css"});
+    } else 
+    if((req.url.includes('.jpg')) || (req.url.includes('.jpeg'))) {
+        res.writeHead(200, {"Content-Type": "image/jpeg"});
+    } else
+    if(req.url.includes('.png')) {
+        res.writeHead(200, {"Content-Type": "text/png"});
+    } else
+    if(req.url.includes('.js')) {
+        res.writeHead(200, {"Content-Type": "text/javascript"});
+    } else 
+    if(req.url.includes('.htm')) {
+        res.writeHead(200, {"Content-Type": "text/html"});
+    } else res.writeHead(415, {'Content-Type': 'text/plain'});
+
+    fs.readFile(path.join(global.apphome, '/public' + req.url), function (err, content) {
         if (err) throw err;
         res.end(content);
     });
