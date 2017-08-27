@@ -3,8 +3,8 @@
     (c) 2017 J.Motyl
 
     Psuedo Models - not Mongoose models in the traditional sense, these are
-    objects that represent the "schema" were using. and will provide a 
-    place to 
+    objects that represent the "schema" we're using. and will provide a 
+    reference of the 
 
 */
 const path = require('path');
