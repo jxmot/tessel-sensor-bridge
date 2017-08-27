@@ -3,4 +3,5 @@ config
 init
 mlab-restapi
 models
+public
 routes
