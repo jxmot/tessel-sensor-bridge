@@ -16,4 +16,5 @@ node_modules
 *.session
 # Links (FF)
 *.url
-
+# SSL files
+*.pem
