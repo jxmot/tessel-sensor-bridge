@@ -4,17 +4,18 @@
 
     Routes and database interactions
 */
+const url  = require('url');
 const path = require('path');
-const mLab = require(path.join(global.apphome, '/mlab-restapi/mlab-restapi.js'));
 
-const sensor_routes = require(path.join(global.apphome, '/routes/sensor.js'));
-const html_routes   = require(path.join(global.apphome, '/routes/html.js'));
+const sensor = require(path.join(global.apphome, '/routes/sensor.js'));
+const html   = require(path.join(global.apphome, '/routes/html.js'));
 
 var routes = {};
 
 // read sensor config database, extract the `name` field and use it to build
 // our routes. each sensor (by name) wiill have it's own database for its
 // data. For example - 
+//
 //    /sensors/[sensorname]_data 
 //      will be: /sensors/SENSXX_data
 //
@@ -41,7 +42,7 @@ routes.router = function(req, res) {
             break;
 
         case 'GET':
-            if(req.url.includes('init')) {
+            if(req.url.includes('/init')) {
                 const init = require(path.join(global.apphome, '/init/init.js'));
                 init.init(function(data) {
                     res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -49,8 +50,14 @@ routes.router = function(req, res) {
                     res.end();
                 });
             } else {
-                res.writeHead(200, {'Content-Type': 'text/plain'});
-                res.end();
+                // check paths, and if valid check for query(if used)
+                if(req.url.includes('/whoami')) {
+                    sensor.whoami(req, res);
+                } else {
+                    // not needed right away
+                    if(req.url.includes('/sensors')) {
+                    }
+                }
             }
             break;
 
