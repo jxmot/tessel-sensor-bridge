@@ -10,7 +10,6 @@ const path = require('path');
 // get all sensor config docs and create the API paths
 const mLab   = require(path.join(global.apphome, '/mlab-restapi/mlab-restapi.js'));
 const paths  = require(path.join(global.apphome, '/routes/paths.js'));
-const models = require(path.join(global.apphome, '/models'));
 
 mLab.getAllDocs(function(data) {
     console.log(data);
