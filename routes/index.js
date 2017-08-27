@@ -6,6 +6,7 @@
 */
 const url  = require('url');
 const path = require('path');
+const fs   = require('fs');
 
 const sensor = require(path.join(global.apphome, '/routes/sensor.js'));
 const html   = require(path.join(global.apphome, '/routes/html.js'));
@@ -24,7 +25,7 @@ var routes = {};
 //
 
 // router...
-routes.router = function(req, res) {
+routes.apiRouter = function(req, res) {
     switch(req.method)
     {
         case 'POST':
@@ -58,6 +59,7 @@ routes.router = function(req, res) {
                 } else {
                     // not needed right away
                     if(req.url.includes('/sensors')) {
+                        
                     }
                 }
             }
@@ -69,6 +71,64 @@ routes.router = function(req, res) {
             res.end();
             break;
     };
+};
+
+routes.htmRouter = function(req, res) {
+    switch(req.method)
+    {
+        case 'GET':
+            if(req.url.includes('/index')) {
+                showIndex(res);
+            } else {
+                if(req.url.includes('/favicon')) {
+                    showFavicon(res);
+                } else {
+                    res.writeHead(404, {'Content-Type': 'application/json'});
+                    res.end();
+                }
+            }
+            break;
+
+        case 'POST':
+            var body = '';
+            req.on('data', function (data){
+                body += data;
+            });
+            req.on('end', function () {
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.write(JSON.stringify(JSON.parse(body)));
+                res.end();
+            });
+            break;
+
+        default:
+            // Method Not Allowed
+            res.writeHead(405, {'Content-Type': 'text/plain','Allow': 'GET,POST'});
+            res.end();
+            break;
+    };
+};
+
+/*
+    Respond with favicon.ico
+*/
+function showFavicon(res) {
+    res.writeHead(200, {"Content-Type": "image/x-icon"});
+    fs.readFile(path.join(global.apphome, '/public/favicon.ico'), function (err, content) {
+        if (err) throw err;
+        res.end(content);
+    });
+};
+
+/*
+    Respond with index.html
+*/
+function showIndex(res) {
+    res.writeHead(200, {"Content-Type": "text/html"});
+    fs.readFile(path.join(global.apphome, '/public/index.html'), function (err, content) {
+        if (err) throw err;
+        res.end(content);
+    });
 };
 
 module.exports = routes;
