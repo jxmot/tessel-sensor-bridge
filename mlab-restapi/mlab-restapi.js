@@ -8,7 +8,6 @@
     This code is intended for use on thin platforms such as the
     Tessel 2. 
 */
-
 const path = require('path');
 const https = require('https');
 
