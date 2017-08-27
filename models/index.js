@@ -11,15 +11,10 @@ const path = require('path');
 
 // this object will contain the model(s) and references
 // to `mongoose` and its connection status.
-var db = {};
-
-// config data model - usage : var sensorCfg  = new db.config();
-const db.config = require(path.join(global.apphome, '/models/config.js'));
-// sensor data model - usage : var sensorData = new db.thdata();
-// sensor data model - usage : var sensorLog  = new db.log();
-const sensor    = require(path.join(global.apphome, '/models/sensor.js'));
-const db.thdata = sensor.thdata;
-const db.log    = sensor.log;
-
+const db = {
+    config: require(path.join(global.apphome, '/models/config.js')),
+    thdata: require(path.join(global.apphome, '/models/sensor.js')).thdata,
+    log: require(path.join(global.apphome, '/models/sensor.js')).log
+};
 // export to the caller...
 module.exports = db;
