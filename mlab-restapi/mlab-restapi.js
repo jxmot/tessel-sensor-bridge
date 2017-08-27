@@ -16,7 +16,7 @@ const account = require(path.join(global.apphome, '/mlab-restapi/config/_mlab-ac
 
 var mlabRestAPI = {};
 
-console.log('apphome = ' + global.apphome);
+//console.log('apphome = ' + global.apphome);
 
 mlabRestAPI.getCollections = function(cb) {
 

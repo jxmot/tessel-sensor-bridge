@@ -22,7 +22,7 @@ init.init = function(cb) {
     var itercount = 0;
     initdata.sensorconfigs.forEach(function(sensor, index, array) {
         mLab.insertDoc(sensor, function(doc) {
-            console.log(doc);
+            //console.log(doc);
             _initdata.push(JSON.parse(doc));
             itercount += 1;
             if(itercount === array.length) eventEmitter.emit('initDone', cb);

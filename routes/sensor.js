@@ -12,7 +12,7 @@ const mLab   = require(path.join(global.apphome, '/mlab-restapi/mlab-restapi.js'
 const paths  = require(path.join(global.apphome, '/routes/paths.js'));
 
 mLab.getAllDocs(function(data) {
-    console.log(data);
+    //console.log(data);
     paths.createPaths(data);
 },
 'config');
@@ -44,8 +44,7 @@ sensor.whoami = function(req, res) {
 };
 
 sensor.datain = function(req, res, data) {
-    console.log(req.url);
-
+    //console.log(req.url);
     if(paths.isSensorPathValid(req.url)) {
         var doc = {};
         if(req.url.includes('_data')) {
@@ -63,7 +62,7 @@ sensor.datain = function(req, res, data) {
             if(data.error === undefined) {
                 res.writeHead(200, {'Content-Type': 'application/json'});
                 var _data = JSON.parse(data);
-                console.log(JSON.stringify({epdate: _data.epdate}));
+                //console.log(JSON.stringify({epdate: _data.epdate}));
                 res.write(JSON.stringify({epdate: _data.epdate}));
             } else {
                 res.writeHead(400, {'Content-Type': 'application/json'});
