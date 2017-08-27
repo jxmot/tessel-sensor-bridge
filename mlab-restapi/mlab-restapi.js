@@ -161,7 +161,6 @@ mlabRestAPI.deleteDoc = function(_id, cb, coll) {
     makeRequest(options, cb);
 };
 
-
 //////////////////////////////////////////////////////////////////////////////
 //
 function makeRequest(options, cb, postdata) {
@@ -177,6 +176,7 @@ function makeRequest(options, cb, postdata) {
     });
     req.on('error', function(e) {
         console.error(e);
+        cb({error: e});
     });
     if((options.method === 'POST') || (options.method === 'PUT')) req.write(postdata);
     req.end();

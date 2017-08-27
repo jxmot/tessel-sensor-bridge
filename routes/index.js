@@ -33,11 +33,13 @@ routes.router = function(req, res) {
                 body += data;
             });
             req.on('end', function () {
-
-                console.log(body);
-
-                res.writeHead(200, {'Content-Type': 'text/plain'});
-                res.end();
+                if(req.url.includes('/sensors')) {
+                    sensor.datain(req, res, JSON.parse(body));
+                } else {
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    res.write(JSON.stringify({message: 'bad url', url: req.url}));
+                    res.end();
+                }
             });
             break;
 

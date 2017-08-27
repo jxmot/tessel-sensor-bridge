@@ -40,8 +40,29 @@ paths.createPaths = function(datastr) {
 };
 
 paths.getSensorPath = function(sensorname) {
-    var ret = JSON.parse(JSON.stringify(paths.sensorpaths[sensorname]));
-    return ret;
+    if(paths.sensorpaths[sensorname] != undefined) {
+        var ret = JSON.parse(JSON.stringify(paths.sensorpaths[sensorname]));
+        return ret;
+    } else return null;
 };
+
+paths.isSensorNameValid = function(sensorname) {
+    if(paths.sensorpaths[sensorname] === undefined) return false;
+    else return true;
+};
+
+paths.isSensorPathValid = function(sensorpath) {
+    var sensorname = sensorpath.substr(sensorpath.lastIndexOf('/') + 1, (sensorpath.lastIndexOf('_') - sensorpath.lastIndexOf('/')) - 1);
+    return paths.isSensorNameValid(sensorname);
+};
+
+paths.extractName = function(sensorpath) {
+    return sensorpath.substr(sensorpath.lastIndexOf('/') + 1, (sensorpath.lastIndexOf('_') - sensorpath.lastIndexOf('/')) - 1);
+};
+
+paths.extractCollection = function(sensorpath) {
+    return sensorpath.substr(sensorpath.lastIndexOf('/') + 1);
+};
+
 
 module.exports = paths;
