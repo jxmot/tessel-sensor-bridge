@@ -15,10 +15,10 @@ module.exports = {
         temp: 0,
         humi: 0,
         ismetric: false,
-        epdate: Date.now()
+        epdate: parseInt(Date.now() / 1000)
     },
     log: {
         msg: '',
-        epdate: Date.now()
+        epdate: parseInt(Date.now() / 1000)
     }
 };
