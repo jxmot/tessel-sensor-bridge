@@ -57,9 +57,16 @@ routes.apiRouter = function(req, res) {
                 if(req.url.includes('/whoami')) {
                     sensor.whoami(req, res);
                 } else {
-                    // not needed right away
+                    // not needed right away (remove if unused)
                     if(req.url.includes('/sensors')) {
-                        
+                        res.writeHead(404, {'Content-Type': 'application/json'});
+                        res.write(JSON.stringify({message: 'not found', url: req.url}));
+                        res.end();
+                    } else {
+                        // everything else....
+                        res.writeHead(400, {'Content-Type': 'application/json'});
+                        res.write(JSON.stringify({message: 'bad url', url: req.url}));
+                        res.end();
                     }
                 }
             }
@@ -83,8 +90,7 @@ routes.htmRouter = function(req, res) {
                 if(req.url.includes('/favicon')) {
                     showFavicon(res);
                 } else {
-                    res.writeHead(404, {'Content-Type': 'application/json'});
-                    res.end();
+                    show404(res);
                 }
             }
             break;
@@ -126,6 +132,17 @@ function showFavicon(res) {
 function showIndex(res) {
     res.writeHead(200, {"Content-Type": "text/html"});
     fs.readFile(path.join(global.apphome, '/public/index.html'), function (err, content) {
+        if (err) throw err;
+        res.end(content);
+    });
+};
+
+/*
+    Respond with 404.html
+*/
+function show404(res) {
+    res.writeHead(404, {"Content-Type": "text/html"});
+    fs.readFile(path.join(global.apphome, '/public/404.html'), function (err, content) {
         if (err) throw err;
         res.end(content);
     });
