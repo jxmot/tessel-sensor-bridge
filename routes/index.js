@@ -84,7 +84,7 @@ routes.htmRouter = function(req, res) {
     switch(req.method)
     {
         case 'GET':
-            if(req.url.includes('/index')) {
+            if((req.url.includes('/index')) || ((req.url.length === 1) && (req.url.includes('/')))) {
                 showIndex(res);
             } else {
                 if(req.url.includes('/favicon')) {
@@ -152,6 +152,9 @@ function show404(res) {
     });
 };
 
+/*
+    Respond with a requested asset
+*/
 function sendAsset(req, res) {
     if(req.url.includes('.css')) {
         res.writeHead(200, {"Content-Type": "text/css"});
