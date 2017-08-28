@@ -35,8 +35,7 @@ var routes = {};
 
 // router...
 routes.apiRouter = function(req, res) {
-    switch(req.method)
-    {
+    switch(req.method) {
         case 'POST':
             var body = '';
             req.on('data', function (data){
@@ -90,8 +89,7 @@ routes.apiRouter = function(req, res) {
 };
 
 routes.htmRouter = function(req, res) {
-    switch(req.method)
-    {
+    switch(req.method) {
         case 'GET':
             if((req.url.includes('/index')) || ((req.url.length === 1) && (req.url.includes('/')))) {
                 showIndex(res);
@@ -162,32 +160,66 @@ function show404(res) {
 };
 
 /*
+    Respond with 404 and some JSON
+*/
+function send404(req, res) {
+    res.writeHead(404, {'Content-Type': 'application/json'});
+    res.write(JSON.stringify({message: 'not found', url: req.url}));
+    res.end();
+};
+
+/*
     Respond with a requested asset
 
     Useful info - 
         https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
 */
 function sendAsset(req, res) {
+    var status = 0;
+    var header = {};
+
     if(req.url.includes('.css')) {
-        res.writeHead(200, {"Content-Type": "text/css"});
+        status = 200;
+        header = {"Content-Type": "text/css"};
     } else 
     if((req.url.includes('.jpg')) || (req.url.includes('.jpeg'))) {
-        res.writeHead(200, {"Content-Type": "image/jpeg"});
+        status = 200;
+        header = {"Content-Type": "image/jpeg"};
     } else
     if(req.url.includes('.png')) {
-        res.writeHead(200, {"Content-Type": "text/png"});
+        status = 200;
+        header = {"Content-Type": "image/png"};
     } else
     if(req.url.includes('.js')) {
-        res.writeHead(200, {"Content-Type": "text/javascript"});
+        status = 200;
+        header = {"Content-Type": "text/javascript"};
     } else 
     if(req.url.includes('.htm')) {
-        res.writeHead(200, {"Content-Type": "text/html"});
-    } else res.writeHead(415, {'Content-Type': 'text/plain'});
-
+        status = 200;
+        header = {"Content-Type": "text/html"};
+    } else {
+        status = 415;
+        header = {"Content-Type": "text/plain"};
+    }
     fs.readFile(path.join(global.apphome, '/public' + req.url), function (err, content) {
-        if (err) throw err;
-        res.end(content);
+        if (err) send404();
+        else {
+            res.writeHead(status, header);
+            res.end(content);
+        }
     });
+};
+
+function sendContent(req, res) {
+    if(req.url.includes('.htm')) {
+        fs.readFile(path.join(global.apphome, '/public' + req.url), function (err, content) {
+            if (err) show404(res);
+            else {
+                res.writeHead(200, {"Content-Type": "text/html"});
+                res.end(content);
+            }
+        });
+    } else show404(res);
 };
 
 module.exports = routes;
