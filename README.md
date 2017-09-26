@@ -1,11 +1,11 @@
 # tessel-sensor-bridge
 
-* [Overview](https://bitbucket.org/jxmot/tessel-mongoose-demo/overview#markdown-header-overview) 
-    * [History](https://bitbucket.org/jxmot/tessel-mongoose-demo/overview#markdown-header-history) 
-* [Requirements](https://bitbucket.org/jxmot/tessel-mongoose-demo/overview#markdown-header-requirements) 
-* [Running the Application](https://bitbucket.org/jxmot/tessel-mongoose-demo/overview#markdown-header-running-the-application) 
-    * [Sanity Check](https://bitbucket.org/jxmot/tessel-mongoose-demo/overview#markdown-header-sanity-check) 
-    * [Running on the Tessel](https://bitbucket.org/jxmot/tessel-mongoose-demo/overview#markdown-header-running-on-the-tessel) 
+* [Overview](#overview) 
+    * [History](#history) 
+* [Requirements](#requirements) 
+* [Running the Application](#running-the-application) 
+    * [Sanity Check](#sanity-check) 
+    * [Running on the Tessel](#running-on-the-tessel) 
 
 # Overview
 
