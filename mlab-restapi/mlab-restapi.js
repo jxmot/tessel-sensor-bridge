@@ -54,7 +54,9 @@ mlabRestAPI.getAllDocs = function(cb, coll) {
 };
 
 // GET /databases/{database}/collections/{collection}
-// Optional parameters : ( info obtained from - http://docs.mlab.com/data-api/)
+// Optional parameters : 
+//  (info obtained from - http://docs.mlab.com/data-api/#list-documents)
+//
 //      &q=<query>          - where <query> is a JSON string
 //      &c=true             - return the result count for this query
 //      &f=<fields>         - specify the set of fields to include or exclude 
@@ -114,7 +116,7 @@ mlabRestAPI.insertDoc = function(dataobj, cb, coll) {
     makeRequest(options, cb, postData);
 };
 
-// PUT /databases/{database}/collections/{collection}/{_id}
+// PUT /databases/{database}/collections/{collection}/{query}
 // Content-Type: application/json 
 // Body: <JSON data>
 mlabRestAPI.updateDoc = function(queryobj, dataobj, cb, coll) {
