@@ -7,7 +7,8 @@
     /sensors/[sensorname]_data
     /sensors/[sensorname]_log
 
-    POST /sensors - body:{name:'SENSXX',temp:74.0,humi:27.4,ismetric:false}
+    POST /sensors/SENSOR01_data - body:{name:'SENSXX',temp:74.0,humi:27.4,ismetric:false}
+    POST /sensors/SENSOR01_log  - body:{name:'SENSXX',msg:'init passed'}
 
 */
 module.exports = {
