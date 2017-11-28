@@ -23,6 +23,7 @@ var sensor = {
 };
 
 paths.createPaths = function(datastr) {
+    var bRet = false;
     paths.sensorpaths = [];
     var dataobj = JSON.parse(datastr);
     dataobj.forEach(function(dbsensor, index, array) {
@@ -36,7 +37,9 @@ paths.createPaths = function(datastr) {
             }
         );
         paths.sensorpaths[newpath.name] = JSON.parse(JSON.stringify(newpath));
+        bRet = true;
     });
+    return bRet;
 };
 
 paths.getSensorPath = function(sensorname) {
