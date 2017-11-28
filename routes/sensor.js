@@ -11,25 +11,31 @@ const path = require('path');
 const mLab   = require(path.join(global.apphome, '/mlab-restapi/mlab-restapi.js'));
 const paths  = require(path.join(global.apphome, '/routes/paths.js'));
 
+var sensor = {
+    error: false,
+    errmsg: ''
+};
+
 mLab.getAllDocs(function(data) {
     //console.log(data);
-    paths.createPaths(data);
+    if(!paths.createPaths(data)) {
+        sensor.error = true;
+        sensor.errmsg = 'createPaths() failed.'
+    }
 },
 'config');
 
-var sensor = {};
-
 sensor.whoami = function(req, res) {
-    if(req.url.indexOf('?') >= 0) {
-        var qobj = url.parse(req.url, true).query;
+    if(!sensor.error && (req.url.indexOf('?') >= 0)) {
+        var qobj = {macaddr: url.parse(req.url, false).query};
         // look up the mac in our database and find the name...
-        mLab.queryDocs({macaddr: qobj.mac}, function(doc) {
+        mLab.queryDocs(qobj, function(doc) {
             var _doc = JSON.parse(doc);
             // there should be only one matching document
             if(_doc.length === 1) {
                 res.writeHead(200, {'Content-Type': 'application/json'});
                 var sensorpath = paths.getSensorPath(_doc[0].name);
-                res.write(JSON.stringify({name: _doc[0].name, interval: _doc[0].interval, ismetric: _doc[0].ismetric,paths:sensorpath.path}));
+                res.write(JSON.stringify({name: _doc[0].name, altname: _doc[0].altname, interval: _doc[0].interval, ismetric: _doc[0].ismetric,paths:sensorpath.path}));
             } else {
                 res.writeHead(400, {'Content-Type': 'application/json'});
                 res.write(JSON.stringify({message: 'query results error', query: qobj, len: _doc.length}));
@@ -38,14 +44,15 @@ sensor.whoami = function(req, res) {
         }, 'config');
     } else {
         res.writeHead(400, {'Content-Type': 'application/json'});
-        res.write(JSON.stringify({message: 'missing query'}));
+        var msg = sensor.error ? sensor.errmsg : 'missing query';
+        res.write(JSON.stringify({message: msg}));
         res.end();
     }
 };
 
 sensor.datain = function(req, res, data) {
-    //console.log(req.url);
-    if(paths.isSensorPathValid(req.url)) {
+    console.log(req.url);
+    if(!sensor.error && paths.isSensorPathValid(req.url)) {
         var doc = {};
         if(req.url.includes('_data')) {
             doc = Object.assign({}, {epdate: parseInt(Date.now() / 1000), temp: data.temp, humi: data.humi, ismetric: data.ismetric});
@@ -72,7 +79,8 @@ sensor.datain = function(req, res, data) {
         }, coll);
     } else {
         res.writeHead(400, {'Content-Type': 'application/json'});
-        res.write(JSON.stringify({message: 'bad path', url: req.url}));
+        var msg = sensor.error ? sensor.errmsg : 'bad path';
+        res.write(JSON.stringify({message: msg, url: req.url}));
         res.end();
     }
 };
