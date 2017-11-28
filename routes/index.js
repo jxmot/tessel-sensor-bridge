@@ -42,40 +42,40 @@ routes.apiRouter = function(req, res) {
                 body += data;
             });
             req.on('end', function () {
-                if(req.url.includes('/sensors')) {
-                    sensor.datain(req, res, JSON.parse(body));
+                if(req.url.includes('/init')) {
+                    const init = require(path.join(global.apphome, '/init/init.js'));
+                    init.init(function(data) {
+                        res.writeHead(200, {'Content-Type': 'text/plain'});
+                        res.write(data);
+                        res.end();
+                    });
                 } else {
-                    res.writeHead(400, {'Content-Type': 'application/json'});
-                    res.write(JSON.stringify({message: 'bad url', url: req.url}));
-                    res.end();
+                    if(req.url.includes('/sensors')) {
+                        sensor.datain(req, res, JSON.parse(body));
+                    } else {
+                        res.writeHead(400, {'Content-Type': 'application/json'});
+                        res.write(JSON.stringify({message: 'bad url', url: req.url}));
+                        res.end();
+                    }
                 }
             });
             break;
 
         case 'GET':
-            if(req.url.includes('/init')) {
-                const init = require(path.join(global.apphome, '/init/init.js'));
-                init.init(function(data) {
-                    res.writeHead(200, {'Content-Type': 'text/plain'});
-                    res.write(data);
-                    res.end();
-                });
+            // check paths, and if valid check for query(if used)
+            if(req.url.includes('/whoami')) {
+                sensor.whoami(req, res);
             } else {
-                // check paths, and if valid check for query(if used)
-                if(req.url.includes('/whoami')) {
-                    sensor.whoami(req, res);
+                // not needed right away (remove if unused)
+                if(req.url.includes('/sensors')) {
+                    res.writeHead(404, {'Content-Type': 'application/json'});
+                    res.write(JSON.stringify({message: 'not found', url: req.url}));
+                    res.end();
                 } else {
-                    // not needed right away (remove if unused)
-                    if(req.url.includes('/sensors')) {
-                        res.writeHead(404, {'Content-Type': 'application/json'});
-                        res.write(JSON.stringify({message: 'not found', url: req.url}));
-                        res.end();
-                    } else {
-                        // everything else....
-                        res.writeHead(400, {'Content-Type': 'application/json'});
-                        res.write(JSON.stringify({message: 'bad url', url: req.url}));
-                        res.end();
-                    }
+                    // everything else....
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    res.write(JSON.stringify({message: 'bad url', url: req.url}));
+                    res.end();
                 }
             }
             break;
