@@ -1,0 +1,74 @@
+{
+	"variables": [],
+	"info": {
+		"name": "tessel-sensor-bridge",
+		"_postman_id": "8a938b0a-570c-c12a-8c20-8593696c9d77",
+		"description": "Tests for all API and HTML endpoints of the tessel-sensor-bridge server.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sensor API",
+			"description": "All endpoints related to sensors.",
+			"item": [
+				{
+					"name": "POST SENS03",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"SENS03\",\"temp\":115.2,\"humi\":62,\"ismetric\":false}"
+						},
+						"url": "localhost:3000/sensors/SENS03_data",
+						"description": "for testing local servers"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "whoami 00:00:00:00:00:01",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:3000/whoami?00:00:00:00:00:01",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"whoami"
+					],
+					"query": [
+						{
+							"key": "00:00:00:00:00:01",
+							"value": "",
+							"equals": false
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "init all sensor configs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": "localhost:3000/init",
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

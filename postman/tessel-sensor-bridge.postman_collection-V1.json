@@ -1,0 +1,112 @@
+{
+	"id": "8a938b0a-570c-c12a-8c20-8593696c9d77",
+	"name": "tessel-sensor-bridge",
+	"description": "Tests for all API and HTML endpoints of the tessel-sensor-bridge server.",
+	"order": [
+		"4fe9b249-1d91-1bfc-56bf-751ed133a5fd",
+		"01179aa6-6cf4-3f90-a2c7-0d60e2769e09"
+	],
+	"folders": [
+		{
+			"name": "Sensor API",
+			"description": "All endpoints related to sensors.",
+			"collectionId": "8a938b0a-570c-c12a-8c20-8593696c9d77",
+			"order": [
+				"36cd15d1-2a4e-a192-ee08-3a1be3a3fb2b"
+			],
+			"owner": "1447281",
+			"folders_order": [],
+			"id": "6da3db3e-d452-52c6-83b5-177cb992e3c1"
+		}
+	],
+	"folders_order": [
+		"6da3db3e-d452-52c6-83b5-177cb992e3c1"
+	],
+	"timestamp": 1511847607745,
+	"owner": "1447281",
+	"public": false,
+	"requests": [
+		{
+			"id": "01179aa6-6cf4-3f90-a2c7-0d60e2769e09",
+			"headers": "",
+			"headerData": [],
+			"url": "localhost:3000/init",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1511853987507,
+			"name": "init all sensor configs",
+			"description": "",
+			"collectionId": "8a938b0a-570c-c12a-8c20-8593696c9d77",
+			"responses": []
+		},
+		{
+			"id": "36cd15d1-2a4e-a192-ee08-3a1be3a3fb2b",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "localhost:3000/sensors/SENS03_data",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "8a938b0a-570c-c12a-8c20-8593696c9d77",
+			"data": [],
+			"dataMode": "raw",
+			"name": "POST SENS03",
+			"description": "for testing local servers",
+			"descriptionFormat": "html",
+			"time": 1511854189855,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "6da3db3e-d452-52c6-83b5-177cb992e3c1",
+			"rawModeData": "{\"name\":\"SENS03\",\"temp\":115.2,\"humi\":62,\"ismetric\":false}"
+		},
+		{
+			"id": "4fe9b249-1d91-1bfc-56bf-751ed133a5fd",
+			"headers": "",
+			"headerData": [],
+			"url": "localhost:3000/whoami?00:00:00:00:00:01",
+			"queryParams": [
+				{
+					"key": "00:00:00:00:00:01",
+					"value": "",
+					"equals": false,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1511853983541,
+			"name": "whoami 00:00:00:00:00:01",
+			"description": "",
+			"collectionId": "8a938b0a-570c-c12a-8c20-8593696c9d77",
+			"responses": []
+		}
+	]
+}
